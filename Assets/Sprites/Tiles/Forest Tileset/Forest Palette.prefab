@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 755437757245328323}
   - component: {fileID: 2938305953540033999}
   m_Layer: 31
-  m_Name: New Palette
+  m_Name: Forest Palette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2849006691070814839}
   m_Enabled: 1
-  m_CellSize: {x: 2, y: 4, z: 0}
+  m_CellSize: {x: 3, y: 3, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
