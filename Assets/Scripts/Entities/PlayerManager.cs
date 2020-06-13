@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IDamageable
 {
     public Transform respawnPoint;
     public Animator animator;
+
+    public float hitpoints = 1;
 
     void Start()
     {
@@ -28,6 +30,15 @@ public class PlayerManager : MonoBehaviour
     void SetRespawnPosition()
     {
         transform.position = respawnPoint.transform.position;
+    }
+
+    public void TakeDamage(float damage, Collision2D collision)
+    {
+        hitpoints -= damage;
+        if (hitpoints <=0)
+        {
+            StartCoroutine(Die());
+        }
     }
 
     IEnumerator Die()

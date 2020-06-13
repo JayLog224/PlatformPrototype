@@ -9,7 +9,11 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed = 10f;
 
     float horizontalMove = 0f;
-    bool jump = false;
+
+    public float jumpTime;
+    float jumpTimeCounter;
+    bool isJumping = false;
+        
 
     [SerializeField]
     Animator animator;
@@ -19,17 +23,41 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = InputManager.Instance.AxisHorizontal * runSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        if (InputManager.Instance.AxisVertical)
+        if (InputManager.Instance.PressedJump)
         {
-            jump = true;
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            controller.Jump();
             animator.SetBool("IsJumping", true);
         }
+
+        if (InputManager.Instance.HeldJump && isJumping == true)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                Debug.Log("jumpTimeCounte: " + jumpTimeCounter);
+                controller.Jump();
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if (InputManager.Instance.ReleasedJump)
+        {
+            isJumping = false;
+            Debug.Log("jumpTimeCounte: released " + jumpTimeCounter);
+        }
+        
+
     }
 
     private void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
-        jump = false;
+        controller.Move(horizontalMove * Time.fixedDeltaTime, false);
+        //isJumping = false;
     }
 
     public void OnLanding()
